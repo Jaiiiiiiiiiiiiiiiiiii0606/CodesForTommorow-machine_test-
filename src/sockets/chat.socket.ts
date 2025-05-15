@@ -7,9 +7,12 @@ export default (io: Server) => {
     socket.on("join_room", (room: any) => {
       socket.join(room);
     });
-    socket.on("send_message", ({ room, message }) => {
-      io.to(room).emit("recive_message", message);
-    });
+    socket.on(
+      "send_message",
+      ({ room, message }: { room: string; message: string }) => {
+        io.to(room).emit("recive_message", message);
+      }
+    );
 
     socket.on("disconnect", () => console.log("User disconnected:", socket.id));
   });
